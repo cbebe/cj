@@ -8,7 +8,7 @@
  * sure if it's worth it considering it's not even reach a megabyte in size.
  */
 const BASE_URL = "https://en.m.wiktionary.org/wiki/Appendix:Chinese_Cangjie";
-const allPages = "日月金木水火土竹戈十大中一弓人心手口尸廿山女田卜難".split("")
+const allPages = "日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜".split("")
   .map((p) => `${BASE_URL}/${encodeURIComponent(p)}`);
 
 function getComponentMap(doc) {
