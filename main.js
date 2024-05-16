@@ -1,6 +1,6 @@
 let allChars = {};
 async function loadJSON() {
-  const data = await fetch('/data/groups.json').then((r) => r.json());
+  const data = await fetch('data/groups.json').then((r) => r.json());
   for (const i in data) {
     for (const j in data[i]) {
       allChars[j] = data[i][j];
