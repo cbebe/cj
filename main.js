@@ -11,11 +11,11 @@ async function loadJSON() {
 loadJSON();
 
 /**
- * @type {HTMLInputElement}
+ * @type {HTMLTextAreaElement}
  */
-const input = document.querySelector("input");
-
-const ul = document.querySelector("ul");
+const input = document.querySelector("#search");
+const result = document.querySelector("#result");
+const ul = document.querySelector("#list");
 
 const chars = "日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜".split("");
 
@@ -24,31 +24,38 @@ function toChars(str) {
     .join("");
 }
 
+function addLink(elem, url, name, c) {
+  const a = document.createElement("a");
+  a.textContent = name;
+  a.href = url + encodeURIComponent(c);
+  elem.appendChild(a);
+}
+
+function addLinks(elem, text) {
+  addLink(elem, "plecoapi://x-callback-url/s?q=", "魚", text);
+  elem.append(" - ");
+  addLink(elem, "https://en.wiktionary.org/wiki/", "W", text);
+}
+
 input.addEventListener("submit", (e) => e.preventDefault());
 input.addEventListener("input", (e) => {
   ul.textContent = "";
+  let hasContent = false;
   for (const c in e.target.value) {
     const char = e.target.value[c];
     if (char in allChars) {
+      hasContent = true;
       const li = document.createElement("li");
       li.textContent = `${char} - ${allChars[char]} - ${
         toChars(allChars[char])
       } - `;
-      {
-        const a = document.createElement("a");
-        a.textContent = "魚";
-        a.href = `plecoapi://x-callback-url/s?q=${encodeURIComponent(char)}`;
-        li.appendChild(a);
-      }
-      li.append(" - ");
-      {
-        const a = document.createElement("a");
-        a.textContent = "W";
-        a.href = `https://en.wiktionary.org/wiki/${encodeURIComponent(char)}`;
-        li.appendChild(a);
-      }
-
+      addLinks(li, char);
       ul.appendChild(li);
     }
+  }
+
+  result.textContent = "";
+  if (hasContent) {
+    addLinks(result, e.target.value);
   }
 });

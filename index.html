@@ -5,16 +5,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cangjie</title>
-  <script src="main.js" defer></script>
+
+  <!-- warning! this depends on the base URL -->
+  <link rel="manifest" href="/cj/manifest.json">
+  <meta name="theme-color" content="#000000">
+
+  <script src="/cj/main.js" defer></script>
   <style>
-    table, th, tr, td {
+    table,
+    th,
+    tr,
+    td {
       border: 1px solid black;
     }
   </style>
 </head>
 
 <body>
-  <input id="search" style="font-size: 1.5rem;">
+  <textarea id="search" style="font-size: 1.5rem;"></textarea>
+  <div id="result"></div>
   <ul id="list"></ul>
   <hr>
 
@@ -33,8 +42,7 @@
       <tr>
         <td>B</td>
         <td>月；the top four strokes of 目; 冂; 爫; 冖; the top and top-left part of 炙, 然, and 祭; the top-left four strokes of
-          豹
-          and 貓; and the top four strokes of 骨 </td>
+          豹 and 貓; and the top four strokes of 骨 </td>
       </tr>
       <tr>
         <td>C</td>
@@ -86,12 +94,14 @@
       </tr>
       <tr>
         <td>Ｏ</td>
-        <td>人；The dismemberment; the Kangxi radical 人; the first two strokes of 丘 and 乓; the first two strokes of 知, 攻,
+        <td>人；The dismemberment; the Kangxi radical 人; the first two strokes of 丘 and 乓; the first two strokes of 知,
+          攻,
           and 氣; ㇏ as in the second stroke of 八; and the final two strokes of 兆</td>
       </tr>
       <tr>
         <td>Ｐ</td>
-        <td>心；The Kangxi radical 忄; the second stroke in 心; 㣺; the shape 匕; the shape 七; the penultimate two strokes in
+        <td>心；The Kangxi radical 忄; the second stroke in 心; 㣺; the shape 匕; the shape 七; the penultimate two strokes
+          in
           代; and the shape 勹</td>
       </tr>
       <tr>
@@ -108,7 +118,8 @@
       </tr>
       <tr>
         <td>Ｔ</td>
-        <td>廿；Two vertical strokes connected by a horizontal stroke; the Kangxi radical 艸 when written as 艹 (whether the
+        <td>廿；Two vertical strokes connected by a horizontal stroke; the Kangxi radical 艸 when written as 艹 (whether
+          the
           horizontal stroke is connected or broken)</td>
       </tr>
       <tr>

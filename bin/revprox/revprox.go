@@ -25,7 +25,7 @@ func main() {
 	}
 
 	proxy := httputil.NewSingleHostReverseProxy(remote)
-	http.HandleFunc("/", handler(proxy))
+	http.HandleFunc("/cj/", handler(proxy))
 	err = http.ListenAndServe("0.0.0.0:8080", nil)
 	if err != nil {
 		log.Fatal(err)
