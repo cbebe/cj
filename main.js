@@ -1,15 +1,3 @@
-let allChars = {};
-async function loadJSON() {
-  const data = await fetch("data/groups.json").then((r) => r.json());
-  for (const i in data) {
-    for (const j in data[i]) {
-      allChars[j] = data[i][j];
-    }
-  }
-}
-
-loadJSON();
-
 /**
  * @type {HTMLTextAreaElement}
  */
@@ -41,15 +29,13 @@ input.addEventListener("submit", (e) => e.preventDefault());
 input.addEventListener("input", (e) => {
   ul.textContent = "";
   let hasContent = false;
-  for (const c in e.target.value) {
-    const char = e.target.value[c];
-    if (char in allChars) {
+  for (const idx in e.target.value) {
+    const c = e.target.value[idx];
+    if (c in data) {
       hasContent = true;
       const li = document.createElement("li");
-      li.textContent = `${char} - ${allChars[char]} - ${
-        toChars(allChars[char])
-      } - `;
-      addLinks(li, char);
+      li.textContent = `${c} - ${data[c]} - ${toChars(data[c])} - `;
+      addLinks(li, c);
       ul.appendChild(li);
     }
   }

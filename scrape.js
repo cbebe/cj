@@ -1,6 +1,6 @@
 /**
- * Downloads all the components needed for each character, grouped by length,
- * as JSON.
+ * Downloads all the components needed for each character as a JS object in a
+ * JS file.
  *
  * Simply run in the browser console while in the Wiktionary website.
  *
@@ -28,34 +28,55 @@ function getComponentMap(doc) {
   return charComponents;
 }
 
-async function groupByLength() {
+function getAllChars() {
   const allCharComponents = {};
-  await Promise.all(
-    allPages.map(async (url) => {
-      const html = await fetch(url).then((r) => r.text());
-      const doc = new DOMParser().parseFromString(html, "text/html");
-      const charComponents = getComponentMap(doc);
-      for (const k in charComponents) {
-        allCharComponents[k] = charComponents[k];
-      }
-    }),
-  );
-  const groups = { 1: {}, 2: {}, 3: {}, 4: {}, 5: {} };
-  for (const k in allCharComponents) {
-    groups[allCharComponents[k].length][k] = allCharComponents[k];
-  }
-  return groups;
+  return Promise.all(
+    allPages.map((url) =>
+      fetch(url).then((r) => r.text()).then((html) => {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const charComponents = getComponentMap(doc);
+        for (const k in charComponents) {
+          allCharComponents[k] = charComponents[k];
+        }
+      })
+    ),
+  ).then(() => allCharComponents);
 }
 
-function downloadObjectAsJSON(exportObj, exportName) {
-  const data = encodeURIComponent(JSON.stringify(exportObj));
+function createJSObject(obj) {
+  let s = encodeURIComponent("const data={");
+  for (const c in obj) {
+    s += encodeURIComponent(c + ':"' + obj[c] + '",');
+  }
+  s = "data:text/javascript;charset=utf-8," + s + encodeURIComponent("};");
   const a = document.createElement("a");
-  a.setAttribute("href", "data:text/json;charset=utf-8," + data);
-  a.setAttribute("download", exportName + ".json");
+  a.setAttribute("href", s);
+  a.setAttribute("download", "data.js");
   document.body.appendChild(a);
   a.click();
   a.remove();
 }
 
-const groups = await groupByLength();
-downloadObjectAsJSON(groups, "groups");
+/* downloads js */
+createJSObject(await getAllChars());
+
+/* downloads json */
+// function groupByLength(obj) {
+//   const groups = { 1: {}, 2: {}, 3: {}, 4: {}, 5: {} };
+//   for (const k in obj) {
+//     groups[obj[k].length][k] = obj[k];
+//   }
+//   return groups;
+// }
+
+// function downloadObjectAsJSON(exportObj, exportName) {
+//   const data = encodeURIComponent(JSON.stringify(exportObj));
+//   const a = document.createElement("a");
+//   a.setAttribute("href", "data:text/json;charset=utf-8," + data);
+//   a.setAttribute("download", exportName + ".json");
+//   document.body.appendChild(a);
+//   a.click();
+//   a.remove();
+// }
+
+// downloadObjectAsJSON(groupByLength(await  getAllChars()), "groups");
