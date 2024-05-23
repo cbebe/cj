@@ -6,3 +6,6 @@ all:
 
 page:
 	go run . build
+
+docs/BabelStoneHan.woff2:
+	wget -O $@ https://www.babelstone.co.uk/Fonts/WOFF/BabelStoneHan.woff2
