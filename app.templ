@@ -1,0 +1,81 @@
+package main
+
+templ deets(title string, table Table) {
+<details>
+	<summary>
+		{ title }
+	</summary>
+	@dataTable(table)
+</details>
+}
+
+templ dataTable(t Table) {
+<table>
+	<thead>
+		<tr>
+			for _, h := range t.Head {
+			<th>{ h }</th>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		for _, row := range t.Data {
+		<tr>
+			for _, col:= range row {
+			<td>{ col }</td>
+			}
+		</tr>
+		}
+	</tbody>
+</table>
+}
+
+templ head() {
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Cangjie</title>
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400&display=swap" rel="stylesheet" />
+	<!-- warning! this depends on the base URL -->
+	<link rel="manifest" href="/cj/manifest.json" />
+	<meta name="theme-color" content="#000000" />
+	<script src="/cj/main.js" defer></script>
+	<script src="/cj/data.js" defer></script>
+	<link rel="stylesheet" href="/cj/style.css" />
+</head>
+}
+
+templ app() {
+<!DOCTYPE html>
+<html lang="en">
+@head()
+
+<body>
+	@input()
+	<hr />
+	@deets("Table of keys", keys)
+	@deets("Decomposition", decomposition)
+	Built with <a href="https://templ.guide/">Templ</a>.
+	Source code is available on <a href="https://github.com/cbebe/cj">GitHub</a>.
+</body>
+
+</html>
+}
+
+templ input() {
+<div>
+	<h1>倉頡輸入法</h1>
+	<p>Type Chinese characters and get their Cangjie input</p>
+	<div>
+		<textarea id="search" style="font-size: 1.5rem;"></textarea>
+	</div>
+	<div id="result"></div>
+	<ul id="list"></ul>
+</div>
+}
+
+// vim: ts=2 sw=2 sts=2
