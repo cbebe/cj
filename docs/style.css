@@ -1,7 +1,10 @@
 @font-face {
 	font-family: 'BabelStoneHan';
-	src: url('/cj/BabelStoneHan.woff2') format('woff2'),
-			 url('https://www.babelstone.co.uk/Fonts/WOFF/BabelStoneHan.woff2') format('woff2');
+	/* src: url('/cj/BabelStoneHan.woff2') format('woff2'), */
+	/*      url('/cj/BabelStoneHan.ttf') format('ttf'), */
+	/* 		 url('https://www.babelstone.co.uk/Fonts/WOFF/BabelStoneHan.woff2') format('woff2'); */
+	/* src: url('/cj/BabelStoneHan.ttf') format('ttf'); */
+	src: url('/cj/BabelStoneHan.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
